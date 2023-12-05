@@ -1,0 +1,11 @@
+#!/bin/env bash
+
+# DEPENDENCIES: none (well, technically i3)
+
+##################################################
+
+# Works only when using the i3 window manager
+
+##################################################
+
+i3-msg "resize set width 2560 px height 1440 px"

@@ -1,0 +1,144 @@
+#!/bin/env bash
+
+# DEPENDENCIES: none
+
+##################################################
+
+# Battery thresholds are defined using the environment
+# variables:
+# - $BATTERY_THRESHOLD_LOW
+# - $BATTERY_THRESHOLD_CRITICAL
+#
+# You can also specify a custom trigger level by
+# passing it as the first argument of this script.
+
+# Brightness applied when hitting the two thresholds.
+low_battery_brightness=20
+critical_battery_brightness=5
+
+# The identifier of the currently used battery.
+battery=BAT0
+# The identifier of the currently used power supply.
+supply=AC0
+# You can find both by looking in /sys/class/power_supply/ :
+# ls /sys/class/power_supply/
+
+# The root of where the settings relative to the brighness are.
+# You can usually find which gpu you use with:
+# ls /sys/class/backlight/
+root=/sys/class/backlight/amdgpu_bl0
+
+# You can easily customize what is done when the battrery
+# hits a certain threshold by modifying the functions
+# on_battery_low(), on_battery_critical() and on_battery_custom()
+# down bellow (lines ~72, ~82, ~92)
+
+##################################################
+
+change_brightness_percent() {
+	multiplier=$1
+	if (($multiplier < 0));
+	then
+		multiplier=0
+	fi
+
+	if (($multiplier > 100));
+	then
+		multiplier=100
+	fi
+
+	brightness_percentage=${multiplier}/100
+	max_brightness=$(cat ${root}/max_brightness)
+	brightness=$(($max_brightness * $brightness_percentage))
+
+	if [[ $@ =~ "--keep-lowest" && (($brightness -ge $(cat ${root}/brightness))) ]];
+	then
+		exit 0
+	fi
+
+	brightness_file=${root}/brightness
+	if test -f $brightness_file;
+	then
+		echo $brightness > $brightness_file
+	fi
+}
+
+
+# BEGINNING OF CUSTOMIZATION
+
+#######################
+# You may modify this #
+#######################
+on_battery_low() {
+	change_brightness_percent $low_battery_brightness --keep-lowest
+	echo "Battery Low"
+	notify-send "Battery Low" "Battery is bellow ${BATTERY_THRESHOLD_LOW}%"
+	#sudo powertop --auto-tune
+}
+
+#######################
+# You may modify this #
+#######################
+on_battery_critical() {
+	change_brightness_percent $critical_battery_brightness --keep-lowest
+	echo "BATTERY CRITICAL"
+	notify-send "Battery Critical" "Branche ton ptn de PC imbécile"
+	notify-send "Battery Critical" "Branche ton ptn de PC imbécile"
+}
+
+#######################
+# You may modify this #
+#######################
+on_battery_custom() {
+	notify-send "Battery Warning" "Battery is bellow ${level}%"
+}
+
+# END OF CUSTOMIZATION
+
+
+file=/sys/class/power_supply/$battery/capacity
+
+if ! test -f $file; then
+	exit
+fi
+
+level=$(cat $file)
+old_level=0
+old_level_file=/tmp/old_battery_level
+ac=$(cat /sys/class/power_supply/$supply/online)
+
+if [[ $ac == "1" ]];
+then
+	echo ""
+	exit 0
+fi
+
+if test -f ${old_level_file};
+then
+	old_level=$(cat ${old_level_file})
+fi
+
+if [[ $level == $old_level ]];
+then
+	echo ""
+	exit 0
+fi
+
+# THRESHOLD-LOW
+# THRESHOLD-CRITICAL
+
+# TODO : allow for skips -> if old_level > threshold and level < threshold; execute
+
+if [[ $level == ${BATTERY_THRESHOLD_LOW} ]] then
+	# 󰂃 󱃍 󱃌 
+	on_battery_low()
+elif [[ $level == ${BATTERY_THRESHOLD_CRITICAL} ]] then
+	on_battery_critical()
+fi
+
+if [[ $@ =~ $level ]] then
+	on_battery_custom()
+fi
+
+echo $level > $old_level_file
+

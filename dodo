@@ -1,10 +1,10 @@
 #!/bin/env bash
 
-# DEPENDENCIES :
-# - mpv
-# - termdown
+# DEPENDENCIES:
+# - mpv       https://mpv.io/
+# - termdown  https://github.com/trehn/termdown
 #
-# install : 
+# install: 
 # pip3 install termdown && sudo dnf install mpv
 
 ##################################################

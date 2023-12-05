@@ -1,9 +1,9 @@
 #!/bin/env bash
 
-# DEPENDENCY :
-# - nitrogen
+# DEPENDENCY:
+# - nitrogen  https://github.com/l3ib/nitrogen
 #
-# install :
+# install:
 # sudo dnf install nitrogen
 
 ##################################################

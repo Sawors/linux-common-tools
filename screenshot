@@ -1,10 +1,10 @@
 #!/bin/env bash
 
-# DEPENDENCIES :
-# - ImageMagick (should be already present)
-# - xclip
+# DEPENDENCIES:
+# - ImageMagick (should be already present)  https://imagemagick.org/index.php
+# - xclip                                    https://github.com/astrand/xclip
 #
-# install :
+# install:
 # sudo dnf install xclip ImageMagick
 
 ##################################################
