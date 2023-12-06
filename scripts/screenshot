@@ -29,7 +29,7 @@ if ! [[ -z "$1" ]] && ! [[ "$1" == "--"* ]]; then
 fi
 
 if [[ "--no-save" =~ "$@" ]]; then
-	$file = "/tmp/$(date '+%d-%m-%Y_%H:%M:%S').png"
+	$file="/tmp/$(date '+%d-%m-%Y_%H:%M:%S').png"
 fi
 
 import $file
