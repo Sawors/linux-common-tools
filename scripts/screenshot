@@ -36,9 +36,11 @@ import $file
 echo "image saved as $file"
 
 if [[ "--copy" =~ "$@" ]]; then
+	echo "copy"
 	xclip -selection clipboard -target image/png -i $file
 fi
 
 if [[ "--no-save" =~ "$@" ]]; then
+	echo "rm"
 	rm "$file"
 fi
