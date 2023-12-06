@@ -13,6 +13,12 @@
 # If you want a custom file destination, input it as the
 # first argument.
 
+# Use the --no-save argument to avoid saving the image to disk.
+# This is useful if you are using the --copy argument to avoid
+# saving unecessary images.
+# When using --no-save, all custom file input are ignored and the
+# temporary image is saved in /tmp
+
 # Default location to save the screenshot
 file="$HOME/Pictures/$(date '+%d-%m-%Y_%H:%M:%S').png"
 
@@ -22,9 +28,17 @@ if ! [[ -z "$1" ]] && ! [[ "$1" == "--"* ]]; then
 	file=$1
 fi
 
+if [[ "--no-save" =~ "$@" ]]; then
+	$file = "/tmp/$(date '+%d-%m-%Y_%H:%M:%S').png"
+fi
+
 import $file
 echo "image saved as $file"
 
 if [[ "--copy" =~ "$@" ]]; then
 	xclip -selection clipboard -target image/png -i $file
+fi
+
+if [[ "--no-save" =~ "$@" ]]; then
+	rm "$file"
 fi
