@@ -9,8 +9,8 @@
 # - $BATTERY_THRESHOLD_LOW
 # - $BATTERY_THRESHOLD_CRITICAL
 #
-# You can also specify a custom trigger level by
-# passing it as the first argument of this script.
+# You can also specify custom trigger levels by
+# passing them as arguments to this script.
 
 # Brightness applied when hitting the two thresholds.
 low_battery_brightness=20
@@ -30,7 +30,7 @@ root=/sys/class/backlight/amdgpu_bl0
 
 # You can easily customize what is done when the battery
 # hits a certain threshold by modifying the functions
-# on_battery_low(), on_battery_critical() and on_battery_custom()
+# on_battery_low, on_battery_critical and on_battery_custom
 # down bellow (lines ~72, ~82, ~92)
 
 ##################################################
@@ -129,16 +129,15 @@ fi
 
 # TODO : allow for skips -> if old_level > threshold and level < threshold; execute
 
-if [[ $level == ${BATTERY_THRESHOLD_LOW} ]] then
+if [[ $level == ${BATTERY_THRESHOLD_LOW} ]]; then
 	# 󰂃 󱃍 󱃌 
-	on_battery_low()
-elif [[ $level == ${BATTERY_THRESHOLD_CRITICAL} ]] then
-	on_battery_critical()
+	on_battery_low
+elif; [[ $level == ${BATTERY_THRESHOLD_CRITICAL} ]] then
+	on_battery_critical
 fi
 
 if [[ $@ =~ $level ]] then
-	on_battery_custom()
+	on_battery_custom
 fi
 
 echo $level > $old_level_file
-
