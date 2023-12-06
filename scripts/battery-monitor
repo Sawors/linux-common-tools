@@ -28,7 +28,7 @@ supply=AC0
 # ls /sys/class/backlight/
 root=/sys/class/backlight/amdgpu_bl0
 
-# You can easily customize what is done when the battrery
+# You can easily customize what is done when the battery
 # hits a certain threshold by modifying the functions
 # on_battery_low(), on_battery_critical() and on_battery_custom()
 # down bellow (lines ~72, ~82, ~92)
