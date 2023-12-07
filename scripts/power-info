@@ -6,6 +6,7 @@
 
 # Use the argument --mode=name_of_the_mode to specify the mode you want to use.
 # Specify no mode to see a list of available modes and their description.
+# Alternatively, you can simply input the mode name as the first argument 
 
 ##################################################
 
@@ -39,6 +40,8 @@ for arg in sys.argv:
     if mode_argument_identifier in arg:
         mode = arg[len(mode_argument_identifier):len(arg)]
         #break
+
+if not "--" in argv[len(argv)-1]: mode = argv[len(argv)-1]
 
 match mode:
     case "ac_test":
