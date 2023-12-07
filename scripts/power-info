@@ -1,0 +1,64 @@
+#!/bin/env python3
+
+# DEPENDENCIES: none
+
+##################################################
+
+# Use the argument --mode=name_of_the_mode to specify the mode you want to use.
+# Specify no mode to see a list of available modes and their description.
+
+##################################################
+
+# For ac_test mode:
+# The file on your system keeping track of the power supply status.
+ac_online_file = "/sys/class/power_supply/AC0/online"
+
+# For battery_life mode:
+# The file displaying the full energy stored by design by your battery.
+energy_full_design_file = "/sys/class/power_supply/BAT0/energy_full_design"
+# The file displaying the maximum energy your battery is currently able to store.
+energy_full_now_file = "/sys/class/power_supply/BAT0/energy_full"
+
+##################################################
+
+from os import path
+from time import sleep
+from os import sys
+
+modes_list = """available modes are:
+
+    - ac_test       checks if the power supply is connected
+    - battery_life  gives a precentage representing how much power the
+                    battery can store now compared to when it was new
+"""
+
+mode = ""
+mode_argument_identifier = "--mode="
+
+for arg in sys.argv:
+    if mode_argument_identifier in arg:
+        mode = arg[len(mode_argument_identifier):len(arg)]
+        #break
+
+match mode:
+    case "ac_test":
+        try:
+            while True:
+                with open(ac_online_file,"r") as content:
+                    power = int(content.readline(1))
+                    print("█"*(100*power))
+                sleep(1/60)
+        except KeyboardInterrupt:
+            exit()
+    case "battery_life":
+        with (
+            open(energy_full_design_file, "r") as base,
+            open("/sys/class/power_supply/BAT0/energy_full", "r") as relative
+        ):
+            #print(base.readline(8).strip())
+            #print(relative.readline(8).strip())
+            energy_max_design = int(base.readline(8).strip())
+            energy_max_now = int(relative.readline(8).strip())
+            print(f"battery integrity: {(energy_max_now/energy_max_design):.1%}")
+    case _:
+        print(f"\nMode \"{mode}\" unknown, {modes_list}")
