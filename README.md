@@ -11,7 +11,7 @@ The dependencies are usually common softwares present on most Linux distribution
 ---
 ## Note on portability
 
-most of these scripts are written to work under **Xorg** on a **Fedora** machine. The dependencies are given through the `dnf` package manager, but a link to the source is usually included.
+Most of these scripts are written to work under **Xorg** on a **Fedora** machine. The dependencies are given through the `dnf` package manager, but a link to the source is usually included.
 
 The distribution you use should not impact much the usability of the scripts, but using another display server implementation than Xorg might make some of them unusable.
 
