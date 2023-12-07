@@ -41,7 +41,7 @@ for arg in sys.argv:
         mode = arg[len(mode_argument_identifier):len(arg)]
         #break
 
-if not "--" in argv[len(argv)-1]: mode = argv[len(argv)-1]
+if not "--" in sys.argv[len(sys.argv)-1]: mode = sys.argv[len(sys.argv)-1]
 
 match mode:
     case "ac_test":
