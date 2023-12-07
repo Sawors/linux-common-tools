@@ -132,7 +132,7 @@ fi
 if [[ $level == ${BATTERY_THRESHOLD_LOW} ]]; then
 	# 󰂃 󱃍 󱃌 
 	on_battery_low
-elif; [[ $level == ${BATTERY_THRESHOLD_CRITICAL} ]] then
+elif [[ $level == ${BATTERY_THRESHOLD_CRITICAL} ]] then
 	on_battery_critical
 fi
 
