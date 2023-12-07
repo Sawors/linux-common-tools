@@ -11,7 +11,7 @@ The dependencies are usually common softwares present on most Linux distribution
 ---
 ## Note on portability
 
-most of these scripts are written to work under **Xorg** on a **Fedora** machine. The dependencies are given through the `dnf` package manager, but a link to the source is usually included.
+Most of these scripts are written to work under **Xorg** on a **Fedora** machine. The dependencies are given through the `dnf` package manager, but a link to the source is usually included.
 
 The distribution you use should not impact much the usability of the scripts, but using another display server implementation than Xorg might make some of them unusable.
 
@@ -21,6 +21,6 @@ File|Function
 -|-
 **battery-monitor**|Low battery checker and brightness modifier
 **dodo**|Sleept timer with sleep and wake up musics
-**screenshot**|Lightweight screenshot utility with a copy to clipboard feature
+**screenshot**|Lightweight screenshot utility with a "copy to clipboard" feature
 **wallpaper**|Little wallpaper helper
 **window-ratio-expand**|Expands the currently used window to 2560x1440 pixels (**works only on i3**)
