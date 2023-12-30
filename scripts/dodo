@@ -14,18 +14,29 @@
 # to this script.
 sleepduration=30
 
-# Change this to the ambinace sound that should
-# be played while sleeping.
-sleepmusic="https://youtu.be/XP1O2eWA84s"
-# Change this to the music used to wake you up.
-wakeupmusic="https://youtu.be/Inz9OOVh7dg"
+# A list of musics from which one will be randomly selected
+# to be played while you are sleeping.
+sleep_musics=(
+	"https://youtu.be/XP1O2eWA84s"
+	"https://youtu.be/Fu04bfwn1PU?si=xn5qEwsyv6aGon3m"
+)
+# A list of music from which one will be 
+# randomly selected to wake you up.
+wake_up_musics=(
+	"https://youtu.be/Inz9OOVh7dg"
+)
 
 # You should not have to modify this, but it is pretty
 # self explanatory.
+# Float (-1 to 1000) (base volume is 100.000 (100%))
 sleepvolume=70
 wakeupvolume=140
 
 ##################################################
+
+sleepmusic=${sleep_musics[$(($RANDOM%${#sleep_musics[@]}))]}
+wakeupmusic=${wake_up_musics[$(($RANDOM%${#wake_up_musics[@]}))]}
+
 
 if [[ $1 != "" ]]; then
 	sleepduration=$1
