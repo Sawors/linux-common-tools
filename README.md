@@ -24,3 +24,4 @@ File|Function
 `screenshot`|Lightweight screenshot utility with a "copy to clipboard" feature
 `wallpaper`|Little wallpaper helper
 `window-ratio-expand`|Expands the currently used window to 2560x1440 pixels (**works only on i3**)
+`power-info`|Used to get battery health and to detect on laptops if the computer is connected to a working power supply 
