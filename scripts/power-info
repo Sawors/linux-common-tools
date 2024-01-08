@@ -20,11 +20,16 @@ energy_full_design_file = "/sys/class/power_supply/BAT0/energy_full_design"
 # The file displaying the maximum energy your battery is currently able to store.
 energy_full_now_file = "/sys/class/power_supply/BAT0/energy_full"
 
+# How many polls should be done in one second (in ac_test mode)
+frequency=100
+
 ##################################################
 
+import os
 from os import path
 from time import sleep
 from os import sys
+from math import floor
 
 modes_list = """available modes are:
 
@@ -45,12 +50,26 @@ if not "--" in sys.argv[len(sys.argv)-1]: mode = sys.argv[len(sys.argv)-1]
 
 match mode:
     case "ac_test":
+        def get_content(ac_state:int) -> str:
+            width = os.get_terminal_size()[0]
+            powered = ac_state > 0
+            message = " AC CONNECTED " if powered else " AC NOT CONNECTED "
+            half_point = (width-len(message))/2
+            spacer_char = "█" if powered else " "
+            if len(message) >= width: return spacer_char*width
+
+            left_spacer = spacer_char*(half_point if floor(half_point) == half_point else floor(half_point))
+            right_spacer = spacer_char*(half_point if floor(half_point) == half_point else floor(half_point)+1)
+
+            return left_spacer+message+right_spacer
+    
         try:
+            
             while True:
                 with open(ac_online_file,"r") as content:
                     power = int(content.readline(1))
-                    print("█"*(100*power))
-                sleep(1/60)
+                    print(get_content(power))
+                sleep(1/frequency)
         except KeyboardInterrupt:
             exit()
     case "battery_life":
