@@ -41,7 +41,7 @@ modes_list = """available modes are:
 mode = ""
 mode_argument_identifier = "--mode="
 
-for arg in sys.argv:
+for arg in sys.argv[1:len(sys.argv)]:
     if mode_argument_identifier in arg:
         mode = arg[len(mode_argument_identifier):len(arg)]
         #break
@@ -53,13 +53,13 @@ match mode:
         def get_content(ac_state:int) -> str:
             width = os.get_terminal_size()[0]
             powered = ac_state > 0
-            message = " AC CONNECTED " if powered else " AC NOT CONNECTED "
+            message = "  AC CONNECTED  " if powered else "  AC NOT CONNECTED  "
             half_point = (width-len(message))/2
-            spacer_char = "█" if powered else " "
+            spacer_char = "█" if powered else "·"
             if len(message) >= width: return spacer_char*width
 
-            left_spacer = spacer_char*(half_point if floor(half_point) == half_point else floor(half_point))
-            right_spacer = spacer_char*(half_point if floor(half_point) == half_point else floor(half_point)+1)
+            left_spacer = spacer_char*int(half_point if floor(half_point) == half_point else floor(half_point))
+            right_spacer = spacer_char*int(half_point if floor(half_point) == half_point else floor(half_point)+1)
 
             return left_spacer+message+right_spacer
     
