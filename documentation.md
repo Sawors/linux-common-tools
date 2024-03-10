@@ -11,7 +11,9 @@
 
 #################[ DESCRIPTION ]##################
 
-help_msg=\"<program and arguments description here>\"
+help_msg="
+<program and arguments description here>
+"
 
 ##################[ VARIABLES ]###################
 

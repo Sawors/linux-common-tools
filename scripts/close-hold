@@ -1,0 +1,38 @@
+#!/bin/env bash
+# DEPENDENCIES:
+# - <DEP_HERE>    <DEP_SOURCE_HERE>
+#
+# install:
+# <command to install all dependencies here (OPTIONAL)>
+
+#################[ DESCRIPTION ]##################
+
+help_msg="
+Used to hold the termination of a program for a
+set amount of seconds.
+
+Usage:
+	$ close-hold <SECONDS>
+	
+Will hold for <SECONDS> before closing
+while displaying a 'Closing in <SECONDS>s...'
+message.
+"
+
+##################[ VARIABLES ]###################
+
+# will sleep for this amount of time between two
+# messages (in seconds, can be a fraction)
+interval=1
+
+#########[ DO NOT EDIT BEYOND THIS POINT ]########
+
+to=$1
+
+for i in $(seq $to -1 1)
+do
+	pad=$((${#to}-${#i}))
+	padding_chars=$(printf %${pad}s)
+	echo -e -n "  Closing in ${i}s...${padding_chars}\r"
+	sleep $interval
+done
