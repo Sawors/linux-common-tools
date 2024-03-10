@@ -1,9 +1,6 @@
 #!/bin/env bash
-# DEPENDENCIES:
-# - <DEP_HERE>    <DEP_SOURCE_HERE>
-#
-# install:
-# <command to install all dependencies here (OPTIONAL)>
+
+# DEPENDENCIES: None
 
 #################[ DESCRIPTION ]##################
 

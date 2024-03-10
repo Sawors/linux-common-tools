@@ -21,6 +21,7 @@ File|Function
 -|-
 `battery-monitor`|Low battery checker and brightness modifier
 `dodo`|Sleep timer with sleep and wake up musics
+`close-hold`|Wait for N seconds before exiting
 `screenshot`|Lightweight screenshot utility with a "copy to clipboard" feature
 `wallpaper`|Little wallpaper helper
 `window-ratio-expand`|Expands the currently used window to 2560x1440 pixels (**works only on i3**)
