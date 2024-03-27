@@ -34,7 +34,7 @@ from math import floor
 modes_list = """available modes are:
 
     - ac_test       checks if the power supply is connected
-    - battery_life  gives a precentage representing how much power the
+    - health        gives a precentage representing how much power the
                     battery can store now compared to when it was new
 """
 
@@ -72,7 +72,7 @@ match mode:
                 sleep(1/frequency)
         except KeyboardInterrupt:
             exit()
-    case "battery_life":
+    case "health":
         with (
             open(energy_full_design_file, "r") as base,
             open("/sys/class/power_supply/BAT0/energy_full", "r") as relative
